@@ -1,0 +1,314 @@
+:root {
+    --primary-color: #20B2AA;
+    --primary-dark: #1a9690;
+    --secondary-color: #f5f5f5;
+    --text-color: #333;
+    --border-radius: 12px;
+    --transition-speed: 0.3s;
+    --box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    --hover-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Enhanced background styles */
+body {
+    background-color: #1a1a1a;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Animated background wrapper */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 0% 0%, rgba(32, 178, 170, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 100% 0%, rgba(41, 128, 185, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 100% 100%, rgba(32, 178, 170, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 0% 100%, rgba(41, 128, 185, 0.4) 0%, transparent 50%),
+        linear-gradient(135deg, #2c3e50, #1a1a1a);
+    z-index: -2;
+}
+
+/* Animated particles */
+@keyframes particle-animation-1 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(50vw, 20vh);
+    }
+}
+
+@keyframes particle-animation-2 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(-30vw, 40vh);
+    }
+}
+
+@keyframes particle-animation-3 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(40vw, -30vh);
+    }
+}
+
+@keyframes particle-animation-4 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(-20vw, -40vh);
+    }
+}
+
+.particle {
+    position: fixed;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+.particle:nth-child(1) {
+    width: 300px;
+    height: 300px;
+    background: var(--primary-color);
+    filter: blur(100px);
+    animation: particle-animation-1 25s infinite alternate;
+}
+
+.particle:nth-child(2) {
+    width: 250px;
+    height: 250px;
+    background: #2980b9;
+    filter: blur(80px);
+    animation: particle-animation-2 30s infinite alternate;
+}
+
+.particle:nth-child(3) {
+    width: 200px;
+    height: 200px;
+    background: var(--primary-dark);
+    filter: blur(60px);
+    animation: particle-animation-3 35s infinite alternate;
+}
+
+.particle:nth-child(4) {
+    width: 350px;
+    height: 350px;
+    background: #3498db;
+    filter: blur(120px);
+    animation: particle-animation-4 40s infinite alternate;
+}
+
+/* Subtle grid pattern overlay */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: -1;
+}
+
+.container {
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+h1 {
+    color: #20B2AA;
+    margin-bottom: 30px;
+}
+
+#password-generator {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+#result {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+
+#copy-button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 25px;
+    background-color: #20B2AA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#copy-button:hover {
+    background-color: #1b9691;
+}
+
+.length-control {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.length-control label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#password-length {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+#options {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#options label {
+    cursor: pointer;
+}
+
+#generate-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #20B2AA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#generate-button:hover {
+    background-color: #1b9691;
+}
+
+.strength-meter {
+    text-align: left;
+    padding: 15px;
+    background: white;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(224, 224, 224, 0.8);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.strength-meter p {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#strength-text {
+    font-weight: bold;
+    color: var(--primary-color);
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(32, 178, 170, 0.1);
+}
+
+#strength-bar {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #e0e0e0;
+    overflow: hidden;
+    position: relative;
+}
+
+#strength-bar::before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 0;
+    transition: all var(--transition-speed);
+    background: linear-gradient(90deg, #ff4747, #ffb447, #47ff47);
+}
+
+.strength-weak::before {
+    width: 33.33%;
+    background: #ff4747;
+}
+
+.strength-medium::before {
+    width: 66.66%;
+    background: #ffb447;
+}
+
+.strength-strong::before {
+    width: 100%;
+    background: #47ff47;
+}
+
+@media (max-width: 480px) {
+    #password-generator {
+        padding: 1.5rem;
+    }
+
+    .options-grid {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .password-container {
+        grid-template-columns: 1fr;
+    }
+
+    #copy-button {
+        padding: 0.75rem;
+    }
+
+    .option-label:hover {
+        transform: none;
+    }
+
+    #generate-button:hover {
+        transform: none;
+    }
+}
