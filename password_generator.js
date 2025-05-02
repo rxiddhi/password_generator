@@ -64,9 +64,12 @@ class PasswordGenerator {
   }
 
   generatePassword() {
-    const characters = this.getSelectedCharacters();
+    // Check which options are selected
+    const selectedTypes = Object.entries(this.options)
+      .filter(([key, checkbox]) => checkbox.checked)
+      .map(([key]) => key);
 
-    if (!characters) {
+    if (selectedTypes.length === 0) {
       alert("Please select at least one character type");
       return;
     }
@@ -74,33 +77,37 @@ class PasswordGenerator {
     const length = Number(this.lengthSlider.value);
     let password = [];
 
-    // Get selected character types
-    const selectedTypes = Object.entries(this.options)
-      .filter(([key, checkbox]) => checkbox.checked)
-      .map(([key]) => key);
-
-    // Calculate minimum numbers to include based on length
-    let numberCount = 0;
-    if (this.options.numbers.checked) {
-      // Ensure at least 30% of characters are numbers when numbers are selected
-      numberCount = Math.max(1, Math.floor(length * 0.3));
-
-      // Add required numbers
-      for (let i = 0; i < numberCount; i++) {
+    // If only numbers are selected, fill the entire password with numbers
+    if (selectedTypes.length === 1 && selectedTypes[0] === "numbers") {
+      for (let i = 0; i < length; i++) {
         const nums = this.characters.numbers;
         password.push(nums[this.getSecureRandom(nums.length)]);
       }
-    }
+    } else {
+      // Handle mixed character types
+      if (this.options.numbers.checked) {
+        // Ensure at least 30% of characters are numbers when numbers are selected
+        const numberCount = Math.max(1, Math.floor(length * 0.3));
 
-    // Fill remaining length with other selected character types
-    const remainingLength = length - password.length;
-    const remainingTypes = selectedTypes.filter((type) => type !== "numbers");
+        // Add required numbers
+        for (let i = 0; i < numberCount; i++) {
+          const nums = this.characters.numbers;
+          password.push(nums[this.getSecureRandom(nums.length)]);
+        }
+      }
 
-    for (let i = 0; i < remainingLength; i++) {
-      const randomType =
-        remainingTypes[this.getSecureRandom(remainingTypes.length)];
-      const chars = this.characters[randomType];
-      password.push(chars[this.getSecureRandom(chars.length)]);
+      // Fill remaining length with other selected character types
+      const remainingLength = length - password.length;
+      const remainingTypes = selectedTypes.filter(
+        (type) => type !== "numbers" || selectedTypes.length === 1
+      );
+
+      for (let i = 0; i < remainingLength; i++) {
+        const randomType =
+          remainingTypes[this.getSecureRandom(remainingTypes.length)];
+        const chars = this.characters[randomType];
+        password.push(chars[this.getSecureRandom(chars.length)]);
+      }
     }
 
     // Shuffle the password array using Fisher-Yates algorithm with secure random
